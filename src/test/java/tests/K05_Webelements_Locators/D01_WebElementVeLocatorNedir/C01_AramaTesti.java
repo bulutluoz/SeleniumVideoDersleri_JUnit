@@ -1,4 +1,4 @@
-package tests.K04_Webelements_Locators.D01_WebElementVeLocatorNedir;
+package tests.K05_Webelements_Locators.D01_WebElementVeLocatorNedir;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
