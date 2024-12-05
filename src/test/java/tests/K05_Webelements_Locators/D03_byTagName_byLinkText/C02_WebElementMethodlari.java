@@ -59,8 +59,7 @@ public class C02_WebElementMethodlari {
 
 
         // sayfayi kapatin
-        Thread.sleep(2000);
-        driver.quit();
+
 
     }
 }
