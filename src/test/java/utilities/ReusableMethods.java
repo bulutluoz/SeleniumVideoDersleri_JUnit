@@ -1,5 +1,10 @@
 package utilities;
 
+import org.openqa.selenium.WebElement;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class ReusableMethods {
 
 
@@ -13,5 +18,17 @@ public class ReusableMethods {
             System.out.println("Thread.sleep komutu calismadi");
         }
 
+    }
+
+    public static List<String> stringListeDondur(List<WebElement> webElementListesi){
+
+        List<String> stringList = new ArrayList<>();
+
+        for ( WebElement eachElement : webElementListesi){
+
+            stringList.add( eachElement.getText() );
+        }
+
+        return stringList;
     }
 }
