@@ -4,8 +4,10 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import utilities.ReusableMethods;
+import utilities.TestBase_Each;
 
-public class C01_BasicAuthentication {
+public class C01_BasicAuthentication extends TestBase_Each {
 
     @Test
     public void test01(){
@@ -28,9 +30,16 @@ public class C01_BasicAuthentication {
          yine sirketin bize tarif edecegi yontemle URL'e eklemeliyiz
          */
 
-
+        driver.get("https://membername:sunflower@testotomasyonu.com/basicauth");
 
         //4- Basarili sekilde sayfaya girildigini dogrulayin
+
+        String expectedYazi = "Basic Auth";
+        String actualYazi = driver.findElement(By.tagName("h1"))
+                                    .getText();
+
+        Assertions.assertEquals(expectedYazi,actualYazi);
+
 
 
     }
