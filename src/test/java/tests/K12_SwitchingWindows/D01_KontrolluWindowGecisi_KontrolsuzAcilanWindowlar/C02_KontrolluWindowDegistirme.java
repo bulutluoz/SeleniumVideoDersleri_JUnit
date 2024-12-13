@@ -7,7 +7,7 @@ import utilities.ReusableMethods;
 import utilities.TestBase_Each;
 
 
-public class C02_KontrolluWindowDegistirme extends TestBase_Each {
+public class C02_KontrolluWindowDegistirme  extends TestBase_Each{
 
     @Test
     public void test01(){
@@ -36,43 +36,54 @@ public class C02_KontrolluWindowDegistirme extends TestBase_Each {
 
         // whd'ini kaydedin ve yazdirin
         String testotomasyonuWhd = driver.getWindowHandle();
-        System.out.println("Testotomasyonu window handle : " + testotomasyonuWhd);
-        ReusableMethods.bekle(2);
+        System.out.println("testotomasyonu window handle degeri : " + testotomasyonuWhd);
+        ReusableMethods.bekle(1);
+
+        System.out.println("Acik olan tum window'larin whd'leri : "+ driver.getWindowHandles());
+
         // yeni bir tab acip, yeni tab'da wisequarter sayfasina gidin
-        driver.switchTo().newWindow(WindowType.TAB).get("https://www.wisequarter.com");
+        driver.switchTo().newWindow(WindowType.TAB);
+        driver.get("https://www.wisequarter.com");
+
 
         // whd'ini kaydedin ve yazdirin
         String wisequarterWhd = driver.getWindowHandle();
-        System.out.println("Wisequarter window handle : " + wisequarterWhd);
-        ReusableMethods.bekle(2);
+        System.out.println("wisequarter window handle degeri : " + wisequarterWhd);
+        ReusableMethods.bekle(1);
+
+        System.out.println("Acik olan tum window'larin whd'leri : "+ driver.getWindowHandles());
+
         // yeni bir window acarak, arabam.com sayfasina gidin
         driver.switchTo().newWindow(WindowType.WINDOW).get("https://www.arabam.com");
 
         // whd'ini kaydedin ve yazdirin
         String arabamWhd = driver.getWindowHandle();
-        System.out.println("Arabam.com window handle : " + arabamWhd);
-        ReusableMethods.bekle(2);
+        System.out.println("arabam window handle degeri : " + arabamWhd);
+        ReusableMethods.bekle(1);
+
+        System.out.println("Acik olan tum window'larin whd'leri : "+ driver.getWindowHandles());
 
         // wisequarter'in acik oldugu window'a donun
         // ve url'in wisequarter icerdigini test edin
         driver.switchTo().window(wisequarterWhd);
-
         String expectedUrlIcerik = "wisequarter";
-        String actualUrl = driver.getCurrentUrl();
+        String  actualUrl = driver.getCurrentUrl();
 
         Assertions.assertTrue(actualUrl.contains(expectedUrlIcerik));
-        ReusableMethods.bekle(2);
+        ReusableMethods.bekle(1);
 
         // testotomasyonu'nun acik oldugu window'a donun
-        // ve url'in testotomasyonu icerdigini test edin
-
         driver.switchTo().window(testotomasyonuWhd);
+
+        // ve url'in testotomasyonu icerdigini test edin
 
         expectedUrlIcerik = "testotomasyonu";
         actualUrl = driver.getCurrentUrl();
 
         Assertions.assertTrue(actualUrl.contains(expectedUrlIcerik));
-        ReusableMethods.bekle(2);
+        ReusableMethods.bekle(1);
+
+
 
     }
 }

@@ -18,11 +18,10 @@ public class C03_KontrolsuzAcilanWindow extends TestBase_Each {
 
         //● Sayfadaki textin “Opening a new window” olduğunu doğrulayın.
         WebElement yaziElementi = driver.findElement(By.tagName("h3"));
-
         String expectedYazi = "Opening a new window";
-        String actualYazi = yaziElementi.getText();
+        String actualyazi = yaziElementi.getText();
 
-        Assertions.assertEquals(expectedYazi,actualYazi);
+        Assertions.assertEquals(expectedYazi,actualyazi);
 
         //● Sayfa başlığının(title) “The Internet” olduğunu doğrulayın.
 
@@ -33,12 +32,9 @@ public class C03_KontrolsuzAcilanWindow extends TestBase_Each {
 
         String ilkWindowWhd = driver.getWindowHandle();
 
-        ReusableMethods.bekle(2);
         //● Click Here butonuna basın.
-
-        driver.findElement(By.linkText("Click Here"))
+        driver.findElement(By.xpath("//*[.='Click Here']"))
                 .click();
-        ReusableMethods.bekle(2);
 
         //● Acilan yeni pencerenin sayfa başlığının (title) “New Window” oldugunu test edin
 
@@ -58,13 +54,11 @@ public class C03_KontrolsuzAcilanWindow extends TestBase_Each {
             yeni window'a gecemedigimiz icin
             yeni window'un whd'ini de alamayiz
          */
-        Set<String> acikTumWindowsWhd =   driver.getWindowHandles();
+        System.out.println("ilk window whd : " + ilkWindowWhd );
+        System.out.println("Click'e bastiktan sonra driver'in oldugu window'un whd : " + driver.getWindowHandle());
 
-        // System.out.println(ilkWindowWhd);
-        // 9CD955B5E912BFF53365031A91C30BBC
-
-        // System.out.println(acikTumWindowsWhd);
-        // [9CD955B5E912BFF53365031A91C30BBC, 461CF80AF0D0A7615BE9FD52A325AB7C]
+        Set<String> acikTumWindowlarinWhdSeti = driver.getWindowHandles();
+        System.out.println(acikTumWindowlarinWhdSeti);
 
         /*
             Yeni window'un whd'ini bulmak icin mini bir bulmaca cozmeliyiz
@@ -78,13 +72,16 @@ public class C03_KontrolsuzAcilanWindow extends TestBase_Each {
             ilk window'un whd'ne esit olmayan elemani
             ikinci window'un whd'i olarak atayabiliriz
          */
+
         String ikinciWindowWhd = "";
 
-        for (String each :acikTumWindowsWhd){
-            if (  !each.equals(ilkWindowWhd) ){
-                ikinciWindowWhd = each;
+        for (String eachWhd :acikTumWindowlarinWhdSeti){
+
+            if ( ! eachWhd.equals(ilkWindowWhd) ){
+                ikinciWindowWhd = eachWhd;
             }
         }
+
 
         /*
             ilk window'un whd'ini en basta kaydetmistik
@@ -93,35 +90,41 @@ public class C03_KontrolsuzAcilanWindow extends TestBase_Each {
             artik switchTo() ile istedigimiz window'a gecis yapabiliriz
 
          */
+        //● Acilan yeni pencerenin sayfa başlığının (title) “New Window” oldugunu test edin
+
+        /*
+            yeni window kontrolsuz olarak acildigi icin
+            driver hala eski window'da
+            yeni window ile ilgili islem yapmadan once
+            driver'i yeni window'a gecirmeliyiz
+         */
+
 
         driver.switchTo().window(ikinciWindowWhd);
-
-        expectedTitle ="New Window";
+        expectedTitle = "New Window";
         actualTitle = driver.getTitle();
 
         Assertions.assertEquals(expectedTitle,actualTitle);
 
         //● Sayfadaki textin “New Window” olduğunu doğrulayın.
 
+        yaziElementi = driver.findElement(By.tagName("h3"));
         expectedYazi = "New Window";
+        actualyazi = yaziElementi.getText();
 
-        actualYazi = driver.findElement(By.tagName("h3")).getText();
-
-        Assertions.assertEquals(expectedYazi,actualYazi);
+        Assertions.assertEquals(expectedYazi,actualyazi);
 
 
-        //● Bir önceki pencereye geri döndükten
+        //● Bir önceki pencereye geri dönun
         driver.switchTo().window(ilkWindowWhd);
 
-        // sonra sayfa başlığının
-        //  “The Internet” olduğunu test edin
+        //  ve sayfa başlığının “The Internet” olduğunu test edin
 
         expectedTitle = "The Internet";
         actualTitle = driver.getTitle();
 
         Assertions.assertEquals(expectedTitle,actualTitle);
 
-        ReusableMethods.bekle(2);
 
     }
 }
