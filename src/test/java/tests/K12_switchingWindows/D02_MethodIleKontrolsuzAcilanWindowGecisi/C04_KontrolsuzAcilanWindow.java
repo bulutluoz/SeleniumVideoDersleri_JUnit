@@ -1,9 +1,8 @@
-package tests.K12_SwitchingWindows.D02_MethodIleKontrolsuzAcilanWindowGecisi;
+package tests.K12_switchingWindows.D02_MethodIleKontrolsuzAcilanWindowGecisi;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import utilities.TestBase_Each;
 
 import java.util.Set;

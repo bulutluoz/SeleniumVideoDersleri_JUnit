@@ -1,4 +1,4 @@
-package tests.K12_SwitchingWindows.D01_KontrolluWindowGecisi_KontrolsuzAcilanWindowlar;
+package tests.K12_switchingWindows.D01_KontrolluWindowGecisi_KontrolsuzAcilanWindowlar;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
