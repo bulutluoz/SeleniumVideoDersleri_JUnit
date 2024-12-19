@@ -80,20 +80,33 @@ public class C03_ReadExcel {
 
                 String satirdakiTurkceBaskentIsmi = sayfa1.getRow(i).getCell(3).getStringCellValue();
                  Assertions.assertEquals(satirdakiTurkceBaskentIsmi,expectedBaskent);
+                 break;
             }
 
 
         }
 
-
-
-
         // Turkce baskent isimlerinde Ankara bulundugunu test edin
+        // Turkce baskent isimleri her satirin 3.index'inde
+        // bir flag olusturup, her satirdaki baskent ismini kontrol edelim
+        // Ankara olan varsa flag'i degistirelim
 
+        boolean ankaraVarMi = false;
 
+        for (int i = 1; i <= sayfa1.getLastRowNum() ; i++) {
 
+            String satirdakiTurkceBaskentIsmi = sayfa1.getRow(i)
+                                                        .getCell(3)
+                                                        .getStringCellValue();
 
+            if (satirdakiTurkceBaskentIsmi.equalsIgnoreCase("Ankara")){
+                ankaraVarMi = true;
+                break;
+            }
 
+        }
+
+        Assertions.assertTrue(ankaraVarMi);
 
         // Turkce baskent isminde A olan ulke sayisini bulun
 
