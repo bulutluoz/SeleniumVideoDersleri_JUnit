@@ -18,47 +18,47 @@ public class C02_WebElementMethodlari {
         // https://www.testotomasyonu.com/form adresine gidin
         driver.get("https://www.testotomasyonu.com/form");
 
-        // Cinsiyet bolumunden size uygun radio button secin
         WebElement erkekRadioButton = driver.findElement(By.id("inlineRadio2"));
+        WebElement kadinRadioButton = driver.findElement(By.id("inlineRadio1"));
+        WebElement digerRadioButton = driver.findElement(By.id("inlineRadio3"));
+
+        // Cinsiyet bolumunden size uygun radio button secin
         erkekRadioButton.click();
 
         // istediginiz radio button'un secili oldugunu test edin
         if (erkekRadioButton.isSelected()){
-            System.out.println("Secim testi PASSED");
-        }else System.out.println("Secim testi FAILED");
+            System.out.println("sectigimiz radio button testi PASSED");
+        } else  System.out.println("sectigimiz radio button testi FAILED");
 
         // sizin isaretlediginiz disindaki butonlarin secili olmadigini test edin
-        WebElement kadinRadioButton = driver.findElement(By.id("inlineRadio1"));
-        WebElement digerRadioButton = driver.findElement(By.id("inlineRadio3"));
 
-        if (  ! kadinRadioButton.isSelected() ){
-            System.out.println("Kadin secim testi PASSED");
-        }else System.out.println("Kadin secim testi FAILED");
+        if (!kadinRadioButton.isSelected()){
+            System.out.println("secmedigimiz radio button testi1 PASSED");
+        } else  System.out.println("secmedigimiz radio button testi1 FAILED");
 
-
-        if (  ! digerRadioButton.isSelected() ){
-            System.out.println("Diger secim testi PASSED");
-        }else System.out.println("Diger secim testi FAILED");
-
+        if (!digerRadioButton.isSelected()){
+            System.out.println("secmedigimiz radio button testi2 PASSED");
+        } else  System.out.println("secmedigimiz radio button testi2 FAILED");
 
         // soyisim kutusunun boyutlarini ve konumunu yazdirin
-        WebElement soyisimKutusu = driver.findElement(By.id("surname"));
-        System.out.println("Soyisim kutusu boyut : " + soyisimKutusu.getSize());
-        System.out.println("Soyisim kutusu konum : " + soyisimKutusu.getLocation());
+        WebElement soyisimKutuElementi = driver.findElement(By.id("surname"));
 
+        System.out.println("Soyisim kutusu boyut : "+ soyisimKutuElementi.getSize());
+        System.out.println("Soyisim kutusu konum : " + soyisimKutuElementi.getLocation());
 
         // soyisim kutusunun HTML kodundaki class attribute degerinin
         // "form-control" oldugunu test edin
 
-        String expectedClassValue = "form-control";
-        String actualClassValue = soyisimKutusu.getAttribute("Class");
+        String expectedAtrDegeri = "form-control";
+        String actualAtrDegeri = soyisimKutuElementi.getAttribute("class");
 
-        if (expectedClassValue.equals(actualClassValue)){
-            System.out.println("Atribute testi PASSED");
-        }else System.out.println("Atribute testi FAILED");
-
+        if (expectedAtrDegeri.equals(actualAtrDegeri)){
+            System.out.println("soyisim kutusu class attribute testi PASSED");
+        } else  System.out.println("soyisim kutusu class attribute testi FAILED");
 
         // sayfayi kapatin
+        Thread.sleep(2000);
+        driver.quit();
 
 
     }
