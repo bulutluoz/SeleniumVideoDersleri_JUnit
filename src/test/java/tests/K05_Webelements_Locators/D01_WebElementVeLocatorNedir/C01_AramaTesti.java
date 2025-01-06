@@ -12,10 +12,9 @@ public class C01_AramaTesti {
     public static void main(String[] args) throws InterruptedException {
 
         //1- Bir test class’i olusturun ilgili ayarlari yapin
-
         WebDriver driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
         //2- https://www.testotomasyonu.com adresine gidin
         driver.get("https://www.testotomasyonu.com");
@@ -31,13 +30,13 @@ public class C01_AramaTesti {
 
         //4- arama kutusuna “shoe” yazdirin
         aramaKutusu.sendKeys("shoe");
-        Thread.sleep(1000);
 
         //5- arama islemini yapabilmek icin ENTER tusuna basin
         aramaKutusu.submit();
 
+        Thread.sleep(2000);
+
         //6- sayfayi kapatin
-        Thread.sleep(13000);
         driver.quit();
 
 

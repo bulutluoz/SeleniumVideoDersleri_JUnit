@@ -33,7 +33,7 @@ public class C03_AsagiInme extends TestBase_Each {
         driver.findElement(By.xpath("//button[@title='Play']"))
                 .click();
 
-        ReusableMethods.bekle(2);
+        ReusableMethods.bekle(12);
 
 
 
