@@ -11,7 +11,7 @@ import java.util.List;
 
 public class C02_FindElements {
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args)  {
 
         //1- Bir test class’i olusturun ilgili ayarlari yapin
         WebDriver driver = new ChromeDriver();
@@ -22,32 +22,60 @@ public class C02_FindElements {
         driver.get("https://www.testotomasyonu.com/");
 
         //3- arama kutusuna phone yazip aratin
-        WebElement aramaKutusu = driver.findElement(By.id("global-search") );
-        aramaKutusu.sendKeys("phone" + Keys.ENTER);
+        WebElement aramaKutusu = driver.findElement(By.id("global-search"));
+
+        aramaKutusu.sendKeys("phone" + Keys.ENTER );
 
         //4- Category bolumunde 8 element oldugunu test edin
-        List<WebElement> categoryElementleriList  = driver.findElements(By.className("panel-list"));
+        List<WebElement> categoriElementleriList =
+                                            driver.findElements(By.className("panel-list"));
 
-        int expectedCategorySayisi = 8;
-        int actualCategorySayisi = categoryElementleriList.size();
 
-        if (expectedCategorySayisi == actualCategorySayisi){
-            System.out.println("Category sayisi testi PASSED");
-        }else System.out.println("Category sayisi testi FAILED");
+        int expectedCategoriElementSayisi = 8;
+        int actualCategoriElementSayisi = categoriElementleriList.size();
+
+        if (actualCategoriElementSayisi == expectedCategoriElementSayisi){
+            System.out.println("categori sayisi testi PASSED");
+        } else System.out.println("categori sayisi testi FAILED");
 
         //5- Category isimlerini yazdirin
+        /*
+         Normalde List direkt olarak yazdirilabilir
+         AMMMAAAA bizim listemiz WebElement'lerden olusuyor
+         ve WebElement'ler direkt yazdirilamaz
+         */
 
-        System.out.println(categoryElementleriList);
-        // Normalde List direkt olarak yazdirilabilir
-        // ammmaa bizim listemiz WebElement'lerden olusuyor
-        // ve WebElement'ler direkt yazdirilamaz
+        System.out.println(categoriElementleriList);
+        /*
+                [[[ChromeDriver: chrome on mac (4fbcccf6f21a620a2a02d86d9d1958fb)] -> class name: panel-list],
+                [[ChromeDriver: chrome on mac (4fbcccf6f21a620a2a02d86d9d1958fb)] -> class name: panel-list],
+                [[ChromeDriver: chrome on mac (4fbcccf6f21a620a2a02d86d9d1958fb)] -> class name: panel-list],
+                [[ChromeDriver: chrome on mac (4fbcccf6f21a620a2a02d86d9d1958fb)] -> class name: panel-list],
+                [[ChromeDriver: chrome on mac (4fbcccf6f21a620a2a02d86d9d1958fb)] -> class name: panel-list],
+                [[ChromeDriver: chrome on mac (4fbcccf6f21a620a2a02d86d9d1958fb)] -> class name: panel-list],
+                [[ChromeDriver: chrome on mac (4fbcccf6f21a620a2a02d86d9d1958fb)] -> class name: panel-list],
+                [[ChromeDriver: chrome on mac (4fbcccf6f21a620a2a02d86d9d1958fb)] -> class name: panel-list]]
+         */
 
-        for (WebElement eachElement :categoryElementleriList){
-            System.out.println(eachElement.getText());
+        for (int i = 0; i <categoriElementleriList.size() ; i++) {
+
+            System.out.println(categoriElementleriList.get(i).getText());
         }
 
+        /*
+            Grocery
+
+            Travel
+            Furniture
+            Shoes
+            Men Fashion
+            Women Fashion
+            Electronics
+         */
+
+
         //6- Sayfayi kapatin
-        Thread.sleep(2000);
         driver.quit();
+
     }
 }

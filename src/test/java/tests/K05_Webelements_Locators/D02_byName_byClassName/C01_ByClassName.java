@@ -10,14 +10,18 @@ import java.time.Duration;
 public class C01_ByClassName {
 
     public static void main(String[] args) throws InterruptedException {
+
         //1- Bir test class’i olusturun ilgili ayarlari yapin
         WebDriver driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+
         //2- https://www.testotomasyonu.com adresine gidin
         driver.get("https://www.testotomasyonu.com");
+
         //3- urun arama kutusunu locate edin
-        WebElement aramaKutusu = driver.findElement(By.id("global-search"));
+        // WebElement aramaKutusu = driver.findElement(By.name("search"));
+        WebElement aramaKutusu = driver.findElement(By.className("search-input"));
 
         //4- arama kutusuna “shoe” yazdirin
         aramaKutusu.sendKeys("shoe");
@@ -26,29 +30,36 @@ public class C01_ByClassName {
         aramaKutusu.submit();
 
         //6- arama sonucunda urun bulunabildigini test edin.
+        /*
+            WebElement'i direkt yazdiramazsiniz, direkt yazdirmak istediginizde referansini yazdirir
+            Eger WebElement ustundelki yaziyi kullanmak isterseniz getText() kullanmalisiniz
+         */
 
-        WebElement aramaSonucYazisiElementi = driver.findElement(By.className("product-count-text"));
+        WebElement aramaSonucElementi = driver.findElement(By.className("product-count-text"));
 
-        // System.out.println(aramaSonucYazisiElementi);
-        // [[ChromeDriver: chrome on mac (4e1efdb1f0c796aeb508155e39e13aa0)] -> class name: product-count-text]
-        // WebElement non-primitive data turudur.
-        // WebElement'i direkt yazdiramazsiniz, direkt yazdirmak istediginizde referansini yazdirir
-        // Eger WebElement ustundelki yaziyi gormek isterseniz getText() kullanmalisiniz
+        System.out.println(aramaSonucElementi);
+        // [[ChromeDriver: chrome on mac (585c752c84c4bde5117a559bfcc73c00)] -> class name: product-count-text]
 
-        // System.out.println(aramaSonucYazisiElementi.getText()); // "4 Products Found"
+        System.out.println(aramaSonucElementi.getText()); // 4 Products Found
 
-        String aramaSonucYazisi = aramaSonucYazisiElementi.getText(); // "4 Products Found"
+        String aramaSonucuStr = aramaSonucElementi.getText();// "4 Products Found"
 
-        aramaSonucYazisi = aramaSonucYazisi.replaceAll("\\D",""); // "4"
+        // sonuc yazisindaki sayi olmayan herseyi yokedelim
 
-        int actualAramaSonucSayisi = Integer.parseInt(aramaSonucYazisi); // 4
+        aramaSonucuStr = aramaSonucuStr.replaceAll("\\D",""); // "4"
 
-        if (actualAramaSonucSayisi > 0){
-            System.out.println("Urun arama testi PASSED");
-        }else System.out.println("Urun arama testi FAILED");
+        // String "4" 'u matematiksel islemde kullanamayiz
+        // Integer'e cevirelim
+
+        int aramaSonucSayisiInt = Integer.parseInt(aramaSonucuStr); // 4
+
+        if (aramaSonucSayisiInt > 0 ){
+            System.out.println("Arama testi PASSED");
+        } else System.out.println("Arama testi FAILED");
 
 
-        Thread.sleep(1000);
+
+        Thread.sleep(2000);
         driver.quit();
 
     }

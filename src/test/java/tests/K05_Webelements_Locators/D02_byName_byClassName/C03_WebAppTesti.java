@@ -11,7 +11,7 @@ import java.util.List;
 
 public class C03_WebAppTesti {
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args){
 
         //1- Bir test class’i olusturun ilgili ayarlari yapin
         WebDriver driver = new ChromeDriver();
@@ -27,50 +27,58 @@ public class C03_WebAppTesti {
 
         //4- Resim altinda 6 islem basligi oldugunu test edin
         List<WebElement> baslikElementleriList = driver.findElements(By.className("headers"));
+
         int expectedBaslikSayisi = 6;
         int actualBaslikSayisi = baslikElementleriList.size();
 
         if (expectedBaslikSayisi == actualBaslikSayisi){
             System.out.println("Baslik sayisi testi PASSED");
-        }else System.out.println("Baslik sayisi testi FAILED");
+        } else System.out.println("Baslik sayisi testi FAILED");
 
         //5- Islem basliklari icinde “Pay Bills” oldugunu test edin
+         /*
+            1.yontem : for loop ile her bir webelementi gozden gecirip
+                       bir flag ile eger istenen metne esit olan baslik varsa
+                       sonucu true olarak kaydedebiliriz
+          */
 
-        System.out.println(baslikElementleriList.contains("Pay Bills")); // false
-        // 'List<WebElement>' may not contain objects of type 'String'
+        boolean payBillsVarMi = false;
 
+        for ( WebElement eachElement  :baslikElementleriList){
 
-        // 1.yontem : for loop ile her bir webelementi gozden gecirip
-        //            bir flag ile eger istenen metne esit olan baslik varsa
-        //            sonucu true olarak kaydedebiliriz
+            if (eachElement.getText().equals("Pay Bills")){
+                payBillsVarMi = true;
+            }
 
-        // 2.yontem : Bos bir String list olusturup
-        //            for loop ile webelement'ler uzerindeki yazilari alip
-        //            String list'e ekleriz,
-        //            Sonra o String listede aranan basligin olup olmadigini test ederiz
-
-        List<String> baslikMetinleriList = new ArrayList<>();
-
-        for (WebElement eachElement :baslikElementleriList){
-
-            baslikMetinleriList.add(eachElement.getText());
         }
 
-        System.out.println("Basliklar String listesi : " + baslikMetinleriList);
-        // Basliklar String listesi : [Account Summary, Account Activity, Transfer Funds, Pay Bills, My Money Map, Online Statements]
+        if (payBillsVarMi){
+            System.out.println("Pay Bills testi1 PASSED");
+        } else System.out.println("Pay Bills testi1 FAILED");
 
+         /*
+               2.yontem : Bos bir String list olusturup
+               for loop ile webelement'ler uzerindeki yazilari alip
+               String list'e ekleriz,
+               Sonra o String listede aranan basligin olup olmadigini test ederiz
+          */
 
-        String expectedBaslik = "Pay Bills";
+        List<String> baslikYazilariList = new ArrayList<>();
 
-        if (baslikMetinleriList.contains(expectedBaslik)){
-            System.out.println("Pay Bills testi PASSED");
-        }else System.out.println("Pay Bills testi FAILED");
+        for ( WebElement eachElement  :baslikElementleriList){
+            baslikYazilariList.add(eachElement.getText());
+        }
+
+        System.out.println("Baslik yazilari : " + baslikYazilariList);
+
+        if (baslikYazilariList.contains("Pay Bills")){
+            System.out.println("Pay Bills testi2 PASSED");
+        } else System.out.println("Pay Bills testi2 FAILED");
 
 
         //6- Sayfayi kapatin
-
-        Thread.sleep(2000);
         driver.quit();
+
 
     }
 }
