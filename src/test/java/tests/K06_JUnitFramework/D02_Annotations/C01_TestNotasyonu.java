@@ -1,14 +1,14 @@
 package tests.K06_JUnitFramework.D02_Annotations;
 
 
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import utilities.ReusableMethods;
 
 import java.time.Duration;
 
+@TestMethodOrder(MethodOrderer.MethodName.class)
 public class C01_TestNotasyonu {
     /*
         @Test notasyonu siradan bir method'u
@@ -27,10 +27,10 @@ public class C01_TestNotasyonu {
 
         eger sirali calismasini istediginiz
         test method'lari olursa
-        isimlerini test01,test02,test03 diye belirlemek gerekir
+        @TestMethodOrder kullanmamiz gerekir
      */
 
-    @Test
+    @Test @Order(10)
     public void testOtomasyonuTest()  {
 
         WebDriver driver = new ChromeDriver();
@@ -54,7 +54,7 @@ public class C01_TestNotasyonu {
 
     }
 
-    @Test @Disabled
+    @Test @Order(2)
     public void wisequarterTesti(){
         WebDriver driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
@@ -76,7 +76,7 @@ public class C01_TestNotasyonu {
 
     }
 
-    @Test
+    @Test @Order(3)
     public void junitTesti(){
 
         WebDriver driver = new ChromeDriver();
