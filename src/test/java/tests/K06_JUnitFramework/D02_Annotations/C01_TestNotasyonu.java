@@ -8,7 +8,7 @@ import utilities.ReusableMethods;
 
 import java.time.Duration;
 
-@TestMethodOrder(MethodOrderer.MethodName.class)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class C01_TestNotasyonu {
     /*
         @Test notasyonu siradan bir method'u
@@ -30,74 +30,73 @@ public class C01_TestNotasyonu {
         @TestMethodOrder kullanmamiz gerekir
      */
 
+
     @Test @Order(10)
-    public void testOtomasyonuTest()  {
+    public void testotomasyonuTesti() throws InterruptedException {
 
         WebDriver driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
-        // 1.method testotomasyonu anasayfaya gidin
         driver.get("https://www.testotomasyonu.com");
-
-        //          title'in Test Otomasyonu icerdigini test edin
 
         String expectedTitleIcerik = "Test Otomasyonu";
         String actualTitle = driver.getTitle();
 
         if (actualTitle.contains(expectedTitleIcerik)){
-            System.out.println("Test otomasyonu testi PASSED");
-        } else System.out.println("Test otomasyonu testi FAILED");
+            System.out.println("Testotomasyonu testi PASSED");
+        } else System.out.println("Testotomasyonu testi FAILED");
 
-        ReusableMethods.bekle(1);
+        Thread.sleep(1000);
         driver.quit();
 
     }
 
+
     @Test @Order(2)
-    public void wisequarterTesti(){
+    void junitTesti() throws InterruptedException {
+
         WebDriver driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
-        // 2.method wisequarter anasayfaya gidin
+        driver.get("https://junit.org/junit5/");
+
+        String expectedUrl = "https://junit.org/junit5/";
+        String actualUrl = driver.getCurrentUrl();
+
+        if (actualUrl.equals(expectedUrl)){
+            System.out.println("Junit testi PASSED");
+        } else System.out.println("Junit testi FAILED");
+
+        Thread.sleep(1000);
+        driver.quit();
+
+    }
+
+
+    @Test  @Order(5)    //@Disabled   gecici sureligine calistirilmasini istemedigimiz method'lar icin kullanilabilir
+    public void wisequarterTesti() throws InterruptedException {
+
+        WebDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+
         driver.get("https://www.wisequarter.com");
-
-        //          url'in wisequarter icerdigini test edin
 
         String expectedUrlIcerik = "wisequarter";
         String actualUrl = driver.getCurrentUrl();
 
         if (actualUrl.contains(expectedUrlIcerik)){
-            System.out.println("Wisequarter testi PASSED");
-        } else  System.out.println("Wisequarter testi FAILED");
-        ReusableMethods.bekle(1);
+            System.out.println("wisequarter testi PASSED");
+        } else System.out.println("wisequarter testi FAILED");
+
+        Thread.sleep(1000);
         driver.quit();
 
     }
 
-    @Test @Order(3)
-    public void junitTesti(){
 
-        WebDriver driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        driver.manage().window().maximize();
-
-        // 3.method junit.org adresine gidin
-        driver.get("https://www.junit.org");
-
-        //          url'in "https://junit.org/junit5/" oldugunu test edin
-
-        String expectedUrl = "https://junit.org/junit5/";
-        String actualUrl = driver.getCurrentUrl();
-
-        if (expectedUrl.equals(actualUrl)){
-            System.out.println("Junit testi PASSED");
-        }else System.out.println("Junit testi FAILED");
-
-        ReusableMethods.bekle(1);
-        driver.quit();
-    }
 
 
 

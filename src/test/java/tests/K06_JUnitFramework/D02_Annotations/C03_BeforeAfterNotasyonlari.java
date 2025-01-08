@@ -17,64 +17,61 @@ public class C03_BeforeAfterNotasyonlari {
     @BeforeEach
     public void setup(){
         driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 
     @AfterEach
-    public void teardown(){
+    public void teardown()  {
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
         driver.quit();
     }
 
-    @Test
-    public void testOtomasyonuTest()  {
-        // 1.method testotomasyonu anasayfaya gidin
-        driver.get("https://www.testotomasyonu.com");
 
-        //          title'in Test Otomasyonu icerdigini test edin
+    @Test
+    public void testotomasyonuTesti()  {
+        driver.get("https://www.testotomasyonu.com");
 
         String expectedTitleIcerik = "Test Otomasyonu";
         String actualTitle = driver.getTitle();
 
         if (actualTitle.contains(expectedTitleIcerik)){
-            System.out.println("Test otomasyonu testi PASSED");
-        } else System.out.println("Test otomasyonu testi FAILED");
-
-        ReusableMethods.bekle(1);
+            System.out.println("Testotomasyonu testi PASSED");
+        } else System.out.println("Testotomasyonu testi FAILED");
     }
 
     @Test
-    public void wisequarterTesti(){
-        // 2.method wisequarter anasayfaya gidin
-        driver.get("https://www.wisequarter.com");
+    void junitTesti()  {
+        driver.get("https://junit.org/junit5/");
 
-        //          url'in wisequarter icerdigini test edin
+        String expectedUrl = "https://junit.org/junit5/";
+        String actualUrl = driver.getCurrentUrl();
+
+        if (actualUrl.equals(expectedUrl)){
+            System.out.println("Junit testi PASSED");
+        } else System.out.println("Junit testi FAILED");
+    }
+
+    @Test
+    public void wisequarterTesti()  {
+        driver.get("https://www.wisequarter.com");
 
         String expectedUrlIcerik = "wisequarter";
         String actualUrl = driver.getCurrentUrl();
 
         if (actualUrl.contains(expectedUrlIcerik)){
-            System.out.println("Wisequarter testi PASSED");
-        } else  System.out.println("Wisequarter testi FAILED");
-        ReusableMethods.bekle(1);
+            System.out.println("wisequarter testi PASSED");
+        } else System.out.println("wisequarter testi FAILED");
     }
 
-    @Test
-    public void junitTesti(){
-        // 3.method junit.org adresine gidin
-        driver.get("https://www.junit.org");
 
-        //          url'in "https://junit.org/junit5/" oldugunu test edin
 
-        String expectedUrl = "https://junit.org/junit5/";
-        String actualUrl = driver.getCurrentUrl();
-
-        if (expectedUrl.equals(actualUrl)){
-            System.out.println("Junit testi PASSED");
-        }else System.out.println("Junit testi FAILED");
-
-        ReusableMethods.bekle(1);
-    }
 
 
 

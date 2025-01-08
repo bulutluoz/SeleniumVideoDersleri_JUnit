@@ -2,6 +2,7 @@ package tests.K06_JUnitFramework.D02_Annotations;
 
 
 import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -26,69 +27,68 @@ public class C02_SetupVeTeardownMethodOlusturma {
 
     public void setup(){
         driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 
-    public void teardown(){
+    public void teardown()  {
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
         driver.quit();
     }
 
-    @Test
-    public void testOtomasyonuTest()  {
-        setup();
-        // 1.method testotomasyonu anasayfaya gidin
-        driver.get("https://www.testotomasyonu.com");
 
-        //          title'in Test Otomasyonu icerdigini test edin
+    @Test
+    public void testotomasyonuTesti()  {
+        setup();
+        driver.get("https://www.testotomasyonu.com");
 
         String expectedTitleIcerik = "Test Otomasyonu";
         String actualTitle = driver.getTitle();
 
         if (actualTitle.contains(expectedTitleIcerik)){
-            System.out.println("Test otomasyonu testi PASSED");
-        } else System.out.println("Test otomasyonu testi FAILED");
-
-        ReusableMethods.bekle(1);
+            System.out.println("Testotomasyonu testi PASSED");
+        } else System.out.println("Testotomasyonu testi FAILED");
         teardown();
     }
 
     @Test
-    public void wisequarterTesti(){
+    void junitTesti() throws InterruptedException {
         setup();
-        // 2.method wisequarter anasayfaya gidin
-        driver.get("https://www.wisequarter.com");
+        driver.get("https://junit.org/junit5/");
 
-        //          url'in wisequarter icerdigini test edin
+        String expectedUrl = "https://junit.org/junit5/";
+        String actualUrl = driver.getCurrentUrl();
+
+        if (actualUrl.equals(expectedUrl)){
+            System.out.println("Junit testi PASSED");
+        } else System.out.println("Junit testi FAILED");
+
+        teardown();
+    }
+
+    @Test
+    public void wisequarterTesti() throws InterruptedException {
+        setup();
+
+        driver.get("https://www.wisequarter.com");
 
         String expectedUrlIcerik = "wisequarter";
         String actualUrl = driver.getCurrentUrl();
 
         if (actualUrl.contains(expectedUrlIcerik)){
-            System.out.println("Wisequarter testi PASSED");
-        } else  System.out.println("Wisequarter testi FAILED");
-        ReusableMethods.bekle(1);
+            System.out.println("wisequarter testi PASSED");
+        } else System.out.println("wisequarter testi FAILED");
+
         teardown();
     }
 
-    @Test
-    public void junitTesti(){
-        setup();
-        // 3.method junit.org adresine gidin
-        driver.get("https://www.junit.org");
 
-        //          url'in "https://junit.org/junit5/" oldugunu test edin
-
-        String expectedUrl = "https://junit.org/junit5/";
-        String actualUrl = driver.getCurrentUrl();
-
-        if (expectedUrl.equals(actualUrl)){
-            System.out.println("Junit testi PASSED");
-        }else System.out.println("Junit testi FAILED");
-
-        ReusableMethods.bekle(1);
-        teardown();
-    }
 
 
 
