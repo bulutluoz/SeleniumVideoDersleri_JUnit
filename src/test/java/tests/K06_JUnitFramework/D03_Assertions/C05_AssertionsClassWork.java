@@ -44,6 +44,7 @@ public class C05_AssertionsClassWork {
         String actualUrl = driver.getCurrentUrl();
 
         Assertions.assertEquals(expectedUrl,actualUrl);
+
     }
 
     @Test
@@ -52,26 +53,24 @@ public class C05_AssertionsClassWork {
         String unExpectedTitleIcerik = "Rest";
         String actualTitle = driver.getTitle();
 
-        Assertions.assertFalse(actualTitle.contains(unExpectedTitleIcerik));
-    }
+        Assertions.assertFalse( actualTitle.contains(unExpectedTitleIcerik));
 
+    }
     @Test
     public void logoTest(){
         //	○ logoTest => BestBuy logosunun görüntülendigini test edin
-        WebElement logoElementi = driver.findElement(By.xpath("(//img[@class='logo'])[1]"));
+        WebElement logoElementi = driver.findElement(By.xpath("(//img[@alt='Best Buy Logo'])[1]"));
 
-        Assertions.assertTrue( logoElementi.isDisplayed() );
+        Assertions.assertTrue(logoElementi.isDisplayed());
 
     }
 
-
     @Test
-    public void francaisTest(){
+    public void linkTest(){
         //	○ FrancaisLinkTest => Fransizca Linkin görüntülendiğini test edin
         WebElement francaisLinkElementi = driver.findElement(By.xpath("//*[.='Français']"));
 
         Assertions.assertTrue(francaisLinkElementi.isDisplayed());
-
 
     }
 

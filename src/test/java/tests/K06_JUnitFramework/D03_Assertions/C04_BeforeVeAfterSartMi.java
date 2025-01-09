@@ -1,15 +1,13 @@
 package tests.K06_JUnitFramework.D03_Assertions;
 
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import utilities.ReusableMethods;
 
 import java.time.Duration;
 import java.util.List;
@@ -24,65 +22,64 @@ public class C04_BeforeVeAfterSartMi {
     //    ve arama sonucunda urun bulunabildigini test edin
     // 3- ilk urunu tiklayin
     //    ve acilan sayfadaki urun isminde case sensitive olmadan "phone" bulundugunu test edin
+    WebDriver driver;
 
-    static WebDriver driver;
-
-    @BeforeAll
-    public static void setup(){
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        System.out.println("SetUp calisti");
-    }
-
-    @AfterAll
-    public static void teardown(){
-        System.out.println("Teardown calisti");
+    @AfterEach
+    public void teardown(){
         driver.quit();
     }
 
     @Test
-    public void test01(){
+    public void urunAramaTesti(){
+
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
         // 1- Test otomasyonu anasayfaya gidin
         driver.get("https://www.testotomasyonu.com");
 
         //    Url'in testotomasyonu icerdigini test edin
 
-        String expectedUrlIcerik = "testotomasyonu1";
+        String expectedurlIcerik = "testotomasyonu111";
         String actualUrl = driver.getCurrentUrl();
 
-        Assertions.assertTrue(actualUrl.contains(expectedUrlIcerik));
+        Assertions.assertTrue(actualUrl.contains(expectedurlIcerik),"url expected kelimeyi icermiyor");
+
+        ReusableMethods.bekle(1);
 
         // 2- phone icin arama yapin
-        WebElement aramaKutusu = driver.findElement(By.id("global-search"));
 
+        WebElement aramaKutusu = driver.findElement(By.id("global-search"));
         aramaKutusu.sendKeys("phone" + Keys.ENTER);
 
         //    ve arama sonucunda urun bulunabildigini test edin
-        List<WebElement> bulunanUrunElementleriList = driver.findElements(By.className("prod-img"));
 
-        int actualBulunanUrunSayisi = bulunanUrunElementleriList.size();
+        List<WebElement> bulunanUrunElementleriList =
+                driver.findElements(By.xpath("//*[@class='prod-img']"));
 
-        Assertions.assertTrue(actualBulunanUrunSayisi>0);
+        int actualSonucSayisi = bulunanUrunElementleriList.size();
+
+        Assertions.assertTrue(actualSonucSayisi>0,"Istenen urun websayfasinda bulunamadi");
+        ReusableMethods.bekle(1);
 
         // 3- ilk urunu tiklayin
         driver.findElement(By.xpath("(//*[@class='prod-img'])[1]"))
                 .click();
 
-        //    ve acilan sayfadaki urun isminde
-        //    case sensitive olmadan "phone" bulundugunu test edin
+        //    ve acilan sayfadaki urun isminde case sensitive olmadan "phone" bulundugunu test edin
 
-        WebElement ilkUrunIsimElementi = driver.findElement(By.xpath(" //div[@class=' heading-sm mb-4']"));
+        WebElement ilkUrunIsimElementi = driver.findElement(By.xpath("//*[@class=' heading-sm mb-4']"));
 
-        String expectedIsimIcerigi = "phone";
-        String actualIsim = ilkUrunIsimElementi.getText().toLowerCase();
+        String expectedIsimIcerik = "phone";
+        String actualIsim = ilkUrunIsimElementi.getText()
+                .toLowerCase(); // case sensitive olmamasi icin
 
-        Assertions.assertTrue(actualIsim.contains(expectedIsimIcerigi));
+        Assertions.assertTrue(actualIsim.contains(expectedIsimIcerik));
+        ReusableMethods.bekle(1);
 
 
     }
-
 
 
 

@@ -11,6 +11,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.opentest4j.AssertionFailedError;
+import utilities.ReusableMethods;
 
 import java.time.Duration;
 import java.util.List;
@@ -25,20 +26,17 @@ public class C03_JUnitAssertions {
     // 3- ilk urunu tiklayin
     //    ve acilan sayfadaki urun isminde case sensitive olmadan "phone" bulundugunu test edin
 
-
     static WebDriver driver;
 
-    @BeforeAll
+    @BeforeAll // class'in basinda 1 kere calisir
     public static void setup(){
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        System.out.println("SetUp calisti");
     }
 
-    @AfterAll
-    public static void teardown(){
-        System.out.println("Teardown calisti");
+    @AfterAll // class'in en sonunda 1 kere calisir
+    static void teardown()  {
         driver.quit();
     }
 
@@ -49,28 +47,44 @@ public class C03_JUnitAssertions {
 
         //    Url'in testotomasyonu icerdigini test edin
 
-        String expectedUrlIcerik = "testotomasyonu";
+        String expectedurlIcerik = "testotomasyonu";
         String actualUrl = driver.getCurrentUrl();
 
-        Assertions.assertTrue(actualUrl.contains(expectedUrlIcerik));
+        Assertions.assertTrue(actualUrl.contains(expectedurlIcerik),"url expected kelimeyi icermiyor");
 
+//        if (actualUrl.contains(expectedurlIcerik)){
+//            System.out.println("Url testi PASSED");
+//        }else {
+//            System.out.println("Url testi FAILED");
+//            throw new AssertionFailedError();
+//        }
+        ReusableMethods.bekle(1);
     }
 
     @Test
     public void test02(){
-
         // 2- phone icin arama yapin
-        WebElement aramaKutusu = driver.findElement(By.id("global-search"));
 
+        WebElement aramaKutusu = driver.findElement(By.id("global-search"));
         aramaKutusu.sendKeys("phone" + Keys.ENTER);
 
         //    ve arama sonucunda urun bulunabildigini test edin
-        List<WebElement> bulunanUrunElementleriList = driver.findElements(By.className("prod-img"));
 
-        int actualBulunanUrunSayisi = bulunanUrunElementleriList.size();
+        List<WebElement> bulunanUrunElementleriList =
+                driver.findElements(By.xpath("//*[@class='prod-img']"));
 
-        Assertions.assertTrue(actualBulunanUrunSayisi>0);
+        int actualSonucSayisi = bulunanUrunElementleriList.size();
 
+        Assertions.assertTrue(actualSonucSayisi>0,"Istenen urun websayfasinda bulunamadi");
+
+//        if (actualSonucSayisi>0){
+//            System.out.println("phone arama testi PASSED");
+//        } else {
+//            System.out.println("phone arama testi FAILED");
+//            throw new AssertionFailedError();
+//        }
+
+        ReusableMethods.bekle(1);
     }
 
     @Test
@@ -79,17 +93,27 @@ public class C03_JUnitAssertions {
         driver.findElement(By.xpath("(//*[@class='prod-img'])[1]"))
                 .click();
 
-        //    ve acilan sayfadaki urun isminde
-        //    case sensitive olmadan "phone" bulundugunu test edin
+        //    ve acilan sayfadaki urun isminde case sensitive olmadan "phone" bulundugunu test edin
 
-        WebElement ilkUrunIsimElementi = driver.findElement(By.xpath(" //div[@class=' heading-sm mb-4']"));
+        WebElement ilkUrunIsimElementi = driver.findElement(By.xpath("//*[@class=' heading-sm mb-4']"));
 
-        String expectedIsimIcerigi = "phone";
-        String actualIsim = ilkUrunIsimElementi.getText().toLowerCase();
+        String expectedIsimIcerik = "phone";
+        String actualIsim = ilkUrunIsimElementi.getText()
+                .toLowerCase(); // case sensitive olmamasi icin
 
-       Assertions.assertTrue(actualIsim.contains(expectedIsimIcerigi));
+        Assertions.assertTrue(actualIsim.contains(expectedIsimIcerik));
+
+//        if(actualIsim.contains(expectedIsimIcerik)){
+//            System.out.println("Urun isim testi PASSED");
+//        } else {
+//            System.out.println("Urun isim testi FAILED");
+//            throw new AssertionFailedError();
+//        }
+
 
     }
+
+
 
 
 
