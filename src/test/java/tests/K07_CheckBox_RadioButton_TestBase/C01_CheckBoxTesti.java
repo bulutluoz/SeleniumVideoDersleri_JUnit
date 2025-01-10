@@ -1,9 +1,6 @@
 package tests.K07_CheckBox_RadioButton_TestBase;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -21,8 +18,8 @@ public class C01_CheckBoxTesti {
     @BeforeEach
     public void setup(){
         driver = new ChromeDriver();
-        driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.manage().window().maximize();
     }
 
     @AfterEach
@@ -30,28 +27,27 @@ public class C01_CheckBoxTesti {
         driver.quit();
     }
 
-
-
     @Test
     public void checkBoxTesti(){
         //	a. Verilen web sayfasına gidin.
         //	     https://testotomasyonu.com/form
         driver.get("https://testotomasyonu.com/form");
 
-        //Actions actions = new Actions(driver);
-        //actions.sendKeys(Keys.PAGE_DOWN).perform();
-
         //	b. Sirt Agrisi ve Carpinti checkbox’larini secin
-        WebElement sirtAgrisiCheckBox = driver.findElement(By.id("gridCheck5"));
-        WebElement carpintiCheckBox = driver.findElement(By.id("gridCheck4"));
+        WebElement sirtAgrisiCheckbox = driver.findElement(By.id("gridCheck5"));
+        WebElement carpintiCheckbox = driver.findElement(By.id("gridCheck4"));
 
-        sirtAgrisiCheckBox.click();
-        carpintiCheckBox.click();
-        ReusableMethods.bekle(1);
+        sirtAgrisiCheckbox.click();
+        carpintiCheckbox.click();
+
         //	c. Sirt Agrisi ve Carpinti checkbox’larininin seçili olduğunu test edin
+        Assertions.assertTrue(sirtAgrisiCheckbox.isSelected());
+        Assertions.assertTrue(carpintiCheckbox.isSelected());
 
-        Assertions.assertTrue(sirtAgrisiCheckBox.isSelected());
-        Assertions.assertTrue(carpintiCheckBox.isSelected());
+//        Actions actions = new Actions(driver);
+//        ReusableMethods.bekle(1);
+//        actions.sendKeys(Keys.PAGE_DOWN).perform();
+//        ReusableMethods.bekle(1);
 
 
         //	d. Seker ve Epilepsi checkbox’larininin seçili
@@ -63,6 +59,5 @@ public class C01_CheckBoxTesti {
         Assertions.assertFalse(sekerCheckbox.isSelected());
         Assertions.assertFalse(epilepsiCheckbox.isSelected());
 
-        ReusableMethods.bekle(1);
     }
 }

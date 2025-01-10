@@ -3,8 +3,6 @@ package tests.K10_basicAuthentications;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import utilities.ReusableMethods;
 import utilities.TestBase_Each;
 
 public class C01_BasicAuthentication extends TestBase_Each {

@@ -9,7 +9,7 @@ import utilities.TestBase_Each;
 
 import java.util.Set;
 
-public class C01_Cookies  extends TestBase_Each{
+public class C01_Cookies  extends TestBase_Each {
 
     @Test
     public void test01(){

@@ -8,8 +8,6 @@ import org.openqa.selenium.interactions.Actions;
 import utilities.ReusableMethods;
 import utilities.TestBase_Each;
 
-import javax.swing.*;
-
 
 public class C02_Actions_DragAndDrop extends TestBase_Each {
 

@@ -17,21 +17,19 @@ public class C02_RadioButton {
     //	c. Iki farkli test method’u oluşturup yazidan veya direk buton’dan size uygun olani secin
     //	d. Sectiginiz radio button’un seçili, ötekilerin seçili olmadigini test edin
 
-    static WebDriver driver;
+    WebDriver driver;
 
-    @BeforeAll
-    public static void setup(){
+    @BeforeEach
+    public void setup(){
         driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 
-    @AfterAll
-    public static void teardown(){
+    @AfterEach
+    public void teardown(){
         driver.quit();
     }
-
-
 
     @Test
     public void yazidanSecimTesti(){
@@ -46,16 +44,14 @@ public class C02_RadioButton {
 
         //	c.yazidan size uygun olani secin
         //    erkek seciyorum
-        WebElement erkekRadioButtonYaziElementi = driver.findElement(By.xpath("//*[@for='inlineRadio2']"));
-        erkekRadioButtonYaziElementi.click();
+        driver.findElement(By.xpath("//*[@for='inlineRadio2']"))
+                .click();
 
         //	d. Sectiginiz radio button’un seçili, ötekilerin seçili olmadigini test edin
 
         Assertions.assertTrue(erkekRadioButton.isSelected());
         Assertions.assertFalse(kadinRadioButton.isSelected());
         Assertions.assertFalse(digerRadioButton.isSelected());
-
-        ReusableMethods.bekle(1);
 
     }
 
@@ -79,8 +75,6 @@ public class C02_RadioButton {
         Assertions.assertTrue(erkekRadioButton.isSelected());
         Assertions.assertFalse(kadinRadioButton.isSelected());
         Assertions.assertFalse(digerRadioButton.isSelected());
-
-        ReusableMethods.bekle(1);
 
     }
 

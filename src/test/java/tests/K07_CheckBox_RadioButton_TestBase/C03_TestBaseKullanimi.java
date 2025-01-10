@@ -4,9 +4,9 @@ package tests.K07_CheckBox_RadioButton_TestBase;
 import org.junit.jupiter.api.Test;
 import utilities.ReusableMethods;
 import utilities.TestBase_All;
+import utilities.TestBase_Each;
 
-
-public class C03_TestBaseKullanimi extends TestBase_All {
+public class C03_TestBaseKullanimi extends TestBase_Each {
 
     /*
         Java'da OOP consept'in en buyuk avantaji REUSABILITY'dir
@@ -27,8 +27,15 @@ public class C03_TestBaseKullanimi extends TestBase_All {
     @Test
     public void test01(){
 
-       driver.get("https://www.testotomasyonu.com");
+        driver.get("https://www.testotomasyonu.com");
+        ReusableMethods.bekle(2);
 
+    }
+
+    @Test
+    public void test02(){
+
+        driver.get("https://www.wisequarter.com");
         ReusableMethods.bekle(2);
 
     }

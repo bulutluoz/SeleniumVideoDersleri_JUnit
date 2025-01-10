@@ -7,7 +7,7 @@ import utilities.ReusableMethods;
 import utilities.TestBase_Each;
 
 
-public class C02_KontrolluWindowDegistirme  extends TestBase_Each{
+public class C02_KontrolluWindowDegistirme  extends TestBase_Each {
 
     @Test
     public void test01(){

@@ -13,13 +13,10 @@ public class TestBase_All {
 
     @BeforeAll
     public static void setup(){
-
-        driver = new ChromeDriver();
+        driver= new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-
     }
-
 
     @AfterAll
     public static void teardown(){
