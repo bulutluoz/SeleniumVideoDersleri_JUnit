@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+import utilities.ReusableMethods;
 import utilities.TestBase_Each;
 
 
@@ -31,16 +32,15 @@ public class C03_DropdownMenu extends TestBase_Each {
         driver.get("http://zero.webappsecurity.com/");
 
         // 2. Sign in butonuna basin
-        driver.findElement(By.id("signin_button"))
-                .click();
+        driver.findElement(By.id("signin_button")).click();
 
         // 3. Login kutusuna “username” yazin
         WebElement loginKutusu = driver.findElement(By.id("user_login"));
         loginKutusu.sendKeys("username");
 
         // 4. Password kutusuna “password” yazin
-        WebElement passwordKutusu = driver.findElement(By.id("user_password"));
-        passwordKutusu.sendKeys("password");
+        driver.findElement(By.id("user_password"))
+                .sendKeys("password");
 
         // 5. Sign in tusuna basin,
         driver.findElement(By.name("submit")).click();
@@ -57,22 +57,21 @@ public class C03_DropdownMenu extends TestBase_Each {
                 .click();
 
         // 7. “Purchase Foreign Currency” tusuna basin
-        driver.findElement(By.xpath("//a[.='Purchase Foreign Currency']"))
+        driver.findElement(By.xpath("//*[text()='Purchase Foreign Currency']"))
                 .click();
 
-        // 8. “Currency” drop down menusunden Eurozone’u secin
+        // 8. “Currency” dropdown menusunden Eurozone’u secin
         WebElement currencyDdm = driver.findElement(By.id("pc_currency"));
         Select select = new Select(currencyDdm);
         select.selectByValue("EUR");
 
         // 9. “amount” kutusuna bir sayi girin
         driver.findElement(By.id("pc_amount"))
-                .sendKeys("200");
+                .sendKeys("100");
 
         // 10. “US Dollars” in secilmedigini test edin
-        WebElement usDollarRadioButton = driver.findElement(By.id("pc_inDollars_true"));
-
-        Assertions.assertFalse(usDollarRadioButton.isSelected());
+        WebElement usDollarsRadioButton= driver.findElement(By.id("pc_inDollars_true"));
+        Assertions.assertFalse(usDollarsRadioButton.isSelected());
 
         // 11. “Selected currency” butonunu secin
         driver.findElement(By.id("pc_inDollars_false"))
@@ -87,15 +86,10 @@ public class C03_DropdownMenu extends TestBase_Each {
                 .click();
 
         // 13. “Foreign currency cash was successfully purchased.” yazisinin ciktigini kontrol edin.
+        String expectedSonucYazisi = "Foreign currency cash was successfully purchased.";
+        String actualSonucyazisi = driver.findElement(By.id("alert_content")).getText();
 
-        String expectedYazi = "Foreign currency cash was successfully purchased.";
-
-        WebElement sonucYaziElementi = driver.findElement(By.id("alert_content"));
-
-        String actualYazi= sonucYaziElementi.getText();
-
-
-        Assertions.assertEquals(expectedYazi,actualYazi);
+        Assertions.assertEquals(expectedSonucYazisi,actualSonucyazisi);
 
     }
 }

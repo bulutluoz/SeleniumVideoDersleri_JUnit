@@ -12,16 +12,14 @@ public class C01_HTML_Alerts extends TestBase_Each {
     public void test01(){
 
         // google anasayfaya gidin
-
         driver.get("https://www.google.com");
-
+        ReusableMethods.bekle(2);
 
         // cookies kabul edin
 
-        driver.findElement(By.xpath("//div[.='Accept all']"))
+        driver.findElement(By.xpath("//div[text()='Accept all']"))
                 .click();
-
-        ReusableMethods.bekle(1);
+        ReusableMethods.bekle(3);
 
     }
 

@@ -3,6 +3,7 @@ package tests.K09_JsAllerts;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
+import utilities.ReusableMethods;
 import utilities.TestBase_Each;
 
 
@@ -36,17 +37,16 @@ public class C02_JsAlerts extends TestBase_Each {
         driver.get("https://testotomasyonu.com/javascriptAlert");
 
         //	- 1.alert'e tiklayin
-        driver.findElement(By.xpath("//button[.='Click for JS Alert']"))
+        driver.findElement(By.xpath("//*[@onclick='jsAlert()']"))
                 .click();
 
         //	-  Alert'deki yazinin "I am a JS Alert" oldugunu test edin
-        String expectedAlertYazi = "I am a JS Alert";
-        String actualAlertYazi = driver
-                                        .switchTo()
+        String expectedAlertyazi = "I am a JS Alert";
+        String actualAlertYazi = driver.switchTo()
                                         .alert()
                                         .getText();
 
-        Assertions.assertEquals(expectedAlertYazi,actualAlertYazi);
+        Assertions.assertEquals(expectedAlertyazi,actualAlertYazi);
 
         //	-  OK tusuna basip alert'i kapatin
         driver.switchTo()
@@ -62,10 +62,10 @@ public class C02_JsAlerts extends TestBase_Each {
         //	- https://testotomasyonu.com/javascriptAlert adresine gidin
         driver.get("https://testotomasyonu.com/javascriptAlert");
 
-
         //	- 2.alert'e tiklayalim
-        driver.findElement(By.xpath("//button[.='Click for JS Confirm']"))
+        driver.findElement(By.xpath("//*[@onclick='jsConfirm()']"))
                 .click();
+
 
         //	- Cancel'a basip,
         driver.switchTo()
@@ -73,11 +73,10 @@ public class C02_JsAlerts extends TestBase_Each {
                 .dismiss();
 
         //	cikan sonuc yazisinin "You clicked: Cancel" oldugunu test edin
-        String expectedSonucYazisi = "You clicked: Cancel" ;
-        String actualSonucYazisi = driver.findElement(By.id("result"))
-                                            .getText();
+        String expectedSonucyazisi = "You clicked: Cancel";
+        String actualSonucYazisi = driver.findElement(By.id("result")).getText();
 
-        Assertions.assertEquals(expectedSonucYazisi,actualSonucYazisi);
+        Assertions.assertEquals(expectedSonucyazisi,actualSonucYazisi);
 
     }
 
@@ -88,22 +87,23 @@ public class C02_JsAlerts extends TestBase_Each {
         driver.get("https://testotomasyonu.com/javascriptAlert");
 
         //	- 3.alert'e tiklayalim
-        driver.findElement(By.xpath("//button[.='Click for JS Prompt']"))
-                .click();
+        driver.findElement(By.xpath("//*[@onclick='jsPrompt()']")).click();
 
         //	- Cikan prompt ekranina "Cansu" yazdiralim
         driver.switchTo().alert().sendKeys("Cansu");
 
+
         //	- OK tusuna basarak alert'i kapatalim
-        driver.switchTo().alert().accept();
+        driver.switchTo()
+                .alert()
+                .accept();
 
         //	- Cikan sonuc yazisinin Cansu icerdigini test edelim
+        String expectedSonucYaziIcerigi = "Cansu";
+        String actualSonucYazisi = driver.findElement(By.id("result")).getText();
 
-        String expectedYaziIcerik = "Cansu";
-        String actualSonucYazisi = driver.findElement(By.id("result"))
-                                            .getText();
+        Assertions.assertTrue(actualSonucYazisi.contains(expectedSonucYaziIcerigi));
 
-        Assertions.assertTrue(actualSonucYazisi.contains(expectedYaziIcerik));
 
     }
 

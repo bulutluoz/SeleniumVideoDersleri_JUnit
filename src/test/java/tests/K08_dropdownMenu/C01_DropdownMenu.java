@@ -1,6 +1,5 @@
 package tests.K08_dropdownMenu;
 
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
@@ -9,89 +8,69 @@ import org.openqa.selenium.support.ui.Select;
 import utilities.ReusableMethods;
 import utilities.TestBase_Each;
 
-import java.util.ArrayList;
 import java.util.List;
+
 
 public class C01_DropdownMenu extends TestBase_Each {
 
-    //● https://testotomasyonu.com/form adresine gidin.
-    //1.Dogum tarihi gun seçeneğinden index kullanarak 5’i secin
-    //2. Dogum tarihi ay seçeneğinden value kullanarak Nisan’i secin
-    //3. Dogum tarihi yil seçeneğinden visible text kullanarak 1990’i secin
-    //4. Secilen değerleri konsolda yazdirin
-    //5. Ay dropdown menüdeki tum değerleri(value) yazdırın
-    //6. Ay Dropdown menusunun boyutunun 13 olduğunu test edin
+    //● https://the-internet.herokuapp.com/dropdown adresine gidin.
+    //1.Index kullanarak Seçenek 1’i (Option 1) seçin ve yazdırın
+    //2.Value kullanarak Seçenek 2'yi (Option 2) seçin ve yazdırın
+    //3.Visible Text(Görünen metin) kullanarak Seçenek 1’i (Option 1) seçin ve yazdırın
+    //4.Tüm dropdown değerleri(value) yazdırın
+    //5. Dropdown’un boyutunun 4 olduğunu test edin
+
+
 
     @Test
     public void test01(){
-        //● https://testotomasyonu.com/form adresine gidin.
-        driver.get("https://testotomasyonu.com/form");
 
-        //1.Dogum tarihi gun seçeneğinden index kullanarak 5’i secin
+        //https://the-internet.herokuapp.com/dropdown adresine gidin.
+        driver.get("https://the-internet.herokuapp.com/dropdown");
 
-            // 1.adim : dropdown menuyu locate edip, bir webelement olarak class'da kaydedelim
-        WebElement gunDdm = driver.findElement(By.xpath("(//select[@class='form-control'])[1]"));
+            // 1.adim dropdown menuyu locate edip kaydedelim
+        WebElement ddm = driver.findElement(By.id("dropdown"));
+            // 2.adim Select class'indan obje olusturup, parametre olarak ddm'yu girin
+        Select select = new Select(ddm);
+            // 3.adim olusturulan select objesi ile istenen islemleri yapin
 
-            // 2.adim : bir select objesi olusturun ve parametre olarak
-            //          kullanmak istediginiz dropdown menuyu girin
-        Select selectGun = new Select(gunDdm);
+        //1.Index kullanarak Seçenek 1’i (Option 1) seçin ve yazdırın
+        select.selectByIndex(1);
 
-            // 3.adim : olusturdugumuz selectGun objesi sayesinde
-            //          Select class'indaki hazir method'lar ile istenen islemleri yapabiliriz
-        selectGun.selectByIndex(5);
+        System.out.println(select.getFirstSelectedOption().getText()); // Option 1
 
-        //2. Dogum tarihi ay seçeneğinden value kullanarak Nisan’i secin
-        WebElement ayDdm = driver.findElement(By.xpath("(//select[@class='form-control'])[2]"));
-        Select selectAy = new Select(ayDdm);
-        selectAy.selectByValue("nisan");
+        //2.Value kullanarak Seçenek 2'yi (Option 2) seçin ve yazdırın
 
-        //3. Dogum tarihi yil seçeneğinden visible text kullanarak 1990’i secin
-        WebElement yilDdm = driver.findElement(By.xpath("(//select[@class='form-control'])[3]"));
-        Select selectYil = new Select(yilDdm);
-        selectYil.selectByVisibleText("1990");
+        select.selectByValue("2");
 
-        //4. Secilen değerleri konsolda yazdirin
-        System.out.println("Gun : " +selectGun.getFirstSelectedOption().getText());
-        System.out.println("Ay : " + selectAy.getFirstSelectedOption().getText());
-        System.out.println("Yil : " + selectYil.getFirstSelectedOption().getText());
+        System.out.println(select.getFirstSelectedOption().getText()); // Option 2
 
+        //3.Visible Text(Görünen metin) kullanarak Seçenek 1’i (Option 1) seçin ve yazdırın
 
-        //5. Ay dropdown menüdeki tum değerleri(value) yazdırın
-        // Ay dropdown menusunde "Ocak" degerinin bulundugunu test edin
+        select.selectByVisibleText("Option 1");
 
-        //1.yontem : dropdown uzerinden olusturdugumuz ayDdm.getText()
-        //           menudeki tum ay isimlerini getirir
-        System.out.println( "Ay dropdown Webelement kullanarak tum liste\n" + ayDdm.getText());
-        Assertions.assertTrue(ayDdm.getText().contains("Ocak"));
+        System.out.println(select.getFirstSelectedOption().getText()); // Option 1
 
-        // 2.yontem : tum opsiyonlarin yazilarini olusturdugumuz
-        //            String bir listeye ekleyebiliriz
-        //            sonra list.contains() ile testimizi yapabiliriz
+        //4.Tüm dropdown değerleri(value) yazdırın
 
-        List<WebElement> ayDdmOptionElementleriList = selectAy.getOptions();
+            // 1.alternatif tum listeyi text olarak yazdirma
+        System.out.println(ddm.getText());
+        //    Please select an option
+        //    Option 1
+        //    Option 2
 
-        List<String> ayDdmOptionIsimleriList = new ArrayList<>();
+            // 2.alternatif, Reusable class'daki String listeye cevirme method'unu kullanalim
+         List<WebElement> tumOptionElementleriList = select.getOptions();
 
-        for ( WebElement eachElement : ayDdmOptionElementleriList){
+        System.out.println(ReusableMethods.stringListeDondur(tumOptionElementleriList));
 
-            ayDdmOptionIsimleriList.add(eachElement.getText() );
-        }
+        //5. Dropdown’un boyutunun 4 olduğunu test edin
 
-        System.out.println("String option listesi : " + ayDdmOptionIsimleriList);
+        int expectedDropdownBoyutu = 4;
+        int actualDropdownBoyutu = tumOptionElementleriList.size();
 
-        Assertions.assertTrue(ayDdmOptionIsimleriList.contains("Ocak"));
+        Assertions.assertEquals(expectedDropdownBoyutu,actualDropdownBoyutu);
 
 
-        // 3.yontem ReusableMethods class'indaki method'u kullanalim
-
-        System.out.println("Hazir method ile ay listesi : " + ReusableMethods.stringListeDondur(ayDdmOptionElementleriList));
-        Assertions.assertTrue( ReusableMethods.stringListeDondur(ayDdmOptionElementleriList).contains("Ocak") );
-
-
-        //6. Ay Dropdown menusunun boyutunun 13 olduğunu test edin
-
-        ReusableMethods.bekle(1);
     }
-
-
 }
