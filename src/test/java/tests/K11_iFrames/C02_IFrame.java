@@ -1,49 +1,74 @@
 package tests.K11_iFrames;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import utilities.ReusableMethods;
 import utilities.TestBase_Each;
 
-import java.util.List;
 
 public class C02_IFrame extends TestBase_Each {
 
+    // 1- https://testotomasyonu.com/discount adresine gidin
+    // 2- Elektronics Products yazisinin gorunur olduğunu test edin
+    // 3- Dell bilgisayar urun isminin ‘DELL Core I3 11th Gen’ olduğunu test edin
+    // 4- Sale Up To 50% yazisinin gorunur oldugunu test edin
+    // 5- Fashion bolumundeki ilk urunu tiklayin
+    //    ve ilk urun isminde "Men Slim Fit" gectigini test edin
+
     @Test
     public void test01(){
-        //1) http://demo.guru99.com/test/guru99home/ sitesine gidiniz
-        driver.get("http://demo.guru99.com/test/guru99home/");
 
-        //2) Cookies cikarsa kabul edin
-        ReusableMethods.bekle(10);
-        //3) sayfadaki iframe sayısını bulunuz.
+        //1- https://testotomasyonu.com/discount adresine gidin
+        driver.get("https://testotomasyonu.com/discount");
 
-        List<WebElement> iframeList = driver.findElements(By.tagName("iframe"));
+        //2- Elektronics Products yazisinin gorunur olduğunu test edin
+        WebElement electronicsIFrame = driver.findElement(By.xpath("(//iframe)[1]"));
+        driver.switchTo().frame(electronicsIFrame);
 
-        System.out.println("Sayfadaki iframe sayisi : " + iframeList.size());
+        WebElement electronicsProducts = driver.findElement(By.xpath("//*[.='Electronics Products']"));
 
-        //4) ilk iframe'deki (Youtube) play butonuna tıklayınız.
-        //   once iFrame gecis yapalim
-
-        driver.switchTo().frame( iframeList.get(0) );
-        driver.findElement(By.xpath("//button[@aria-label='Play']")).click();
+        Assertions.assertTrue(electronicsProducts.isDisplayed());
 
 
-        //5) ilk iframe'den çıkıp ana sayfaya dönünüz
-        driver.switchTo().defaultContent();
+        //3- Dell bilgisayar urun isminin ‘DELL Core I3 11th Gen’ olduğunu test edin
+        String expectedUrunIsmi = "DELL Core I3 11th Gen";
+        String actualUrunIsmi = driver.findElement(By.id("pictext1"))
+                                        .getText();
 
-        //6) ikinci iframe'deki (Jmeter Made Easy) linke
-        //   (https://www.guru99.com/live-selenium-project.html) tıklayınız
+        Assertions.assertEquals(expectedUrunIsmi,actualUrunIsmi);
 
-        // once 2.iframe'e gecis yapmaliyiz
-        driver.switchTo().frame( iframeList.get(1)   );
+        //4- Sale Up To 50% yazisinin gorunur oldugunu test edin
+        //   bu yazi anasayfada oldugu icin
+        //   once electronics iframe'inden anasayfaya gecis yapmaliyiz
+        driver.switchTo().parentFrame();
 
-        driver.findElement(By.tagName("a")).click();
+        WebElement baslikElementi = driver.findElement(By.tagName("h2"));
+        String expectedBaslikYazisi = "Sale Up To 50%";
+        String actualBaslikYazisi = baslikElementi.getText();
+
+        Assertions.assertEquals(expectedBaslikYazisi,actualBaslikYazisi);
+
+        // 5- Fashion bolumundeki ilk urun ismini locate edin
+        //    fashion bolumu ayri bir IFrame icerisinde oldugundan , once o iFrame'e gecis yapmaliyiz
+
+        WebElement fashionIFrame = driver.findElement(By.xpath("(//iframe)[2]"));
+
+        driver.switchTo().frame(fashionIFrame);
+
+        // simdi ilk urun ismini locate edin
+        WebElement ilkUrunIsimElementi = driver.findElement(By.xpath("(//p)[1]"));
+
+
+        // ve ilk urun isminde "Men Slim Fit" gectigini test edin
+
+        String expectedIsimIcerigi = "Men Slim Fit";
+        actualUrunIsmi = ilkUrunIsimElementi.getText();
+
+        Assertions.assertTrue(actualUrunIsmi.contains(expectedIsimIcerigi));
 
 
 
-        ReusableMethods.bekle(5);
 
     }
 }
