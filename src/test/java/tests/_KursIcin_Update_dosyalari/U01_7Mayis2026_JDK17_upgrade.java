@@ -1,0 +1,83 @@
+package tests._KursIcin_Update_dosyalari;
+
+public class U01_7Mayis2026_JDK17_upgrade {
+    /*
+    Yeni JUnit versiyonlari minimum JDK 17 istiyor,
+    bu amacla bilgisayarinizdaki JDK surumunu JDK17'ye upgrade etmelisiniz
+    asagidaki pom.xml benim bilgisayarimda calisan pom.xml dosyasinin icerigidir.
+
+
+
+   <?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.example</groupId>
+    <artifactId>java17_junit_deneme</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+    </properties>
+
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>4.43.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>6.3.4</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>6.0.3</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-launcher -->
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-launcher</artifactId>
+            <version>6.0.3</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.github.javafaker/javafaker -->
+        <dependency>
+            <groupId>com.github.javafaker</groupId>
+            <artifactId>javafaker</artifactId>
+            <version>1.0.2</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>5.5.1</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>5.5.1</version>
+        </dependency>
+    </dependencies>
+
+</project>
+
+
+     */
+}
